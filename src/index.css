@@ -1,7 +1,17 @@
+:root {
+    --dark-blue: #6D96A6;
+    --light-blue: #A6D5E9;
+    --green: #AED1CA;
+    --dark-green: #91b3ac;
+    --light-brown: #E1D2B6;
+    --dark-brown: #9E8A7A;
+    --text-primary: #584753;
+}
+
 body {
 
-    background-color: black;
-    color: white;
+    background-color: var(--green);
+    color: var(--text-primary);
 
     /* Allow mouse dragging. */
     -moz-user-select: none;
@@ -23,3 +33,35 @@ body {
     /* Hide the gap for font descenders. */
     display: block;
 }
+
+.navbar {
+    background-color: var(--light-brown);
+    border-radius: 8px;
+    padding: 10px;
+    padding-right: 30px;
+    position: fixed;
+    z-index: 800;
+}
+
+.navbar li {
+    display: inline;
+    padding: 10px;
+}
+
+.navbar a {
+    text-decoration: none;
+}
+
+.navbar a:link {
+    color: var(--text-primary)
+}
+
+.navbar a:active {
+    color: var(--dark-blue)
+}
+
+.navbar a:hover {
+    color: var(--green)
+}
+
+
