@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="60" height="34" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="8">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="60" height="34" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="10">
  <tileset firstgid="1" source="../img/homeTiles.tsx"/>
  <layer id="2" name="Background" width="60" height="34">
   <data encoding="csv">
@@ -39,7 +39,7 @@
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,8,6,6,6,6,9,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4
 </data>
  </layer>
- <objectgroup id="4" name="Object Layer 1">
+ <objectgroup id="4" name="Avatar">
   <object id="7" name="avatar" x="930" y="250" width="64" height="64">
    <properties>
     <property name="framewidth" type="int" value="64"/>
@@ -47,4 +47,5 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup id="5" name="Collision" visible="0"/>
 </map>
