@@ -1,5 +1,6 @@
 import { Entity, game } from 'melonjs';
 import * as me from 'melonjs/dist/melonjs.module.js';
+import { throwStatement } from '../../../../../AppData/Local/Microsoft/TypeScript/4.9/node_modules/@babel/types/lib/index';
 
 class PlayerEntity extends Entity {
 
@@ -17,8 +18,8 @@ class PlayerEntity extends Entity {
         this.alwaysUpdate = true;
 
         // walking & jumping speed
-        this.body.setMaxVelocity(2.5, 2.5);
-        this.body.setFriction(0.4,0.4);
+        this.body.setMaxVelocity(3, 3);
+        this.body.setFriction(0.4, 1);
 
         // enable keyboard
         me.input.bindKey(me.input.KEY.LEFT,  "left");
@@ -51,14 +52,14 @@ class PlayerEntity extends Entity {
 
         this.renderable.addAnimation ("walk_left",  [
             { name: "avatar-left.png", delay: 100 }, 
-            { name: "avatar-left-walk-left.png", delay: 100 }, 
-            { name: "avatar-left-walk-right.png", delay: 100 }
+            { name: "avatar-left-walk-front.png", delay: 100 }, 
+            { name: "avatar-left-walk-back.png", delay: 100 }
         ]);
 
         this.renderable.addAnimation ("walk_right",  [
             { name: "avatar-right.png", delay: 100 }, 
-            { name: "avatar-right-walk-left.png", delay: 100 }, 
-            { name: "avatar-right-walk-right.png", delay: 100 }
+            { name: "avatar-right-walk-front.png", delay: 100 }, 
+            { name: "avatar-right-walk-back.png", delay: 100 }
         ]);
 
         this.renderable.addAnimation ("walk_up",  [
@@ -67,44 +68,48 @@ class PlayerEntity extends Entity {
             { name: "avatar-back-walk-right.png", delay: 100 }
         ]);
 
+        // define a standing animation
+        this.renderable.addAnimation( "stand", [
+            { name: "avatar-front.png"}
+        ]);
+
         // set as default
-        this.renderable.setCurrentAnimation("walk_down");
+        this.renderable.setCurrentAnimation("stand");
     }
 
     /**
      * update the entity
      */
     update(dt) {
-
         if (me.input.isKeyPressed("left")) {
             // update the entity velocity
-            this.body.force.x = -this.body.maxVel.x;
+            this.body.vel.y = 0;
+            this.body.vel.x = -this.body.maxVel.x;
             if (!this.renderable.isCurrentAnimation("walk_left")) {
                 this.renderable.setCurrentAnimation("walk_left");
             }
         } else if (me.input.isKeyPressed("right")) {
             // update the entity velocity
+            this.body.vel.y = 0;
             this.body.force.x = this.body.maxVel.x;
             if (!this.renderable.isCurrentAnimation("walk_right")) {
                 this.renderable.setCurrentAnimation("walk_right");
             }
-        } else {
-            this.body.force.x = 0;
-        }
-        if (me.input.isKeyPressed("up")) {
+        } else if (me.input.isKeyPressed("up")) {
             // update the entity velocity
             this.body.force.y = -this.body.maxVel.y;
-            if (!this.renderable.isCurrentAnimation("walk_up") && this.body.vel.x === 0) {
+            if (!this.renderable.isCurrentAnimation("walk_up")) {
                 this.renderable.setCurrentAnimation("walk_up");
             }
         } else if (me.input.isKeyPressed("down")) {
             // update the entity velocity
             this.body.force.y = this.body.maxVel.y;
-            if (!this.renderable.isCurrentAnimation("walk_down") && this.body.vel.x === 0) {
+            if (!this.renderable.isCurrentAnimation("walk_down")) {
                 this.renderable.setCurrentAnimation("walk_down");
             }
         } else {
-            this.body.force.y = 0;
+            this.body.vel = { x: 0, y: 0 }
+            this.renderable.setCurrentAnimation("stand");
         }
 
         // check if we moved (an "idle" animation would definitely be cleaner)

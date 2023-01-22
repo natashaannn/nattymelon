@@ -3,6 +3,7 @@ const fs = require("fs");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const webpack = require('webpack');
 require("@babel/register");
 
 module.exports = {
@@ -31,6 +32,9 @@ module.exports = {
 		],
 	},
 	plugins: [
+		new webpack.ProvidePlugin({
+			process: 'process/browser',
+		  }),
 		new HtmlWebpackPlugin({
 			template: "./src/index.html",
 			hash: true,
